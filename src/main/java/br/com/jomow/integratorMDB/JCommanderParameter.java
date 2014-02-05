@@ -26,4 +26,7 @@ public class JCommanderParameter {
   @Parameter(names = "-table", description = "Table")
   public String table;
   
+  @Parameter(names = "-urlPost", description = "urlPost")
+  public String urlPost;
+  
 }
