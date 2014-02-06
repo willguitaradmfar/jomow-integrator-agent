@@ -49,7 +49,7 @@
 					 <manifest>
 		               <addClasspath>true</addClasspath>
 		               <classpathPrefix>lib/</classpathPrefix>
-		               <mainClass>br.com.jomow.integratorMDB.Main</mainClass>
+		               <mainClass>br.com.jomow.Main</mainClass>
 		             </manifest>					
 					</archive>
         		</configuration>

@@ -1,4 +1,4 @@
-package br.com.jomow.integratorMDB;
+package br.com.jomow.connectors;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
