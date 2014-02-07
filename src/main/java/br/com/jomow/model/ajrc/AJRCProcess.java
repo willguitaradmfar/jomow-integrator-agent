@@ -12,6 +12,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import br.com.jomow.exception.PlataformResponseException;
 import br.com.jomow.model.util.Util;
 
 public class AJRCProcess {
@@ -55,11 +56,15 @@ public class AJRCProcess {
 	public void integrar() throws JsonGenerationException, JsonMappingException, IOException, Exception{
 		List<Pedido> pListPost = getListToPost();		
 		for(Pedido p : pListPost){
-			System.out.println(p);
-			String json = mapper.writeValueAsString(p);
-			Util.sendPost(json, this.urlPost);
-			pedidosMD5Cache.put(p.getCodigo().toString(), Util.transformStringToMD5(p.toString()));
-			mapper.writeValue(fileCacheIntegraator, pedidosMD5Cache);
+			try{
+				System.out.println(p);
+				String json = mapper.writeValueAsString(p);
+				Util.sendPost(json, this.urlPost);
+				pedidosMD5Cache.put(p.getCodigo().toString(), Util.transformStringToMD5(p.toString()));
+				mapper.writeValue(fileCacheIntegraator, pedidosMD5Cache);
+			}catch(PlataformResponseException ex){
+				System.err.println(ex.getMessage());
+			}
 		}
 		
 	}
