@@ -33,36 +33,32 @@ public class AJRCProcess {
 	
 	public void tranformListToMD5() throws JsonGenerationException, JsonMappingException, IOException{		
 		for(Pedido p : pedidos){
-			pedidosMD5.put(p.getCodigo().toString(), Util.transformStringToMD5(mapper.writeValueAsString(p)));			
+			pedidosMD5.put(p.getCodigo().toString(), Util.transformStringToMD5(p.toString()));
 		}
 	}
 	
 	public List<Pedido> getListToPost() throws JsonGenerationException, JsonMappingException, IOException{
-		List<Pedido> listPost = new ArrayList<Pedido>();
-		int i = 0 ;
+		List<Pedido> listPost = new ArrayList<Pedido>();		
 		for(Pedido p : pedidos){			
 			if(pedidosMD5Cache.get(p.getCodigo().toString()) == null){				
 				listPost.add(p);
 			}			
-			if(pedidosMD5Cache.get(p.getCodigo().toString()) != null && !pedidosMD5Cache.get(p.getCodigo().toString()).equals(pedidosMD5.get(p.getCodigo().toString()))){
-				System.out.println(p.getCodigo()+" - "+pedidosMD5.get(p.getCodigo().toString()) + " <<>> "+pedidosMD5Cache.get(p.getCodigo().toString()));
-				i++;
+			if(pedidosMD5Cache.get(p.getCodigo().toString()) != null && !pedidosMD5Cache.get(p.getCodigo().toString()).equals(pedidosMD5.get(p.getCodigo().toString()))){			
+				
 				listPost.add(p);
-			}
+			}		
 			
-			
-		}	
-		System.out.println(i);
+		}
 		return listPost;
 	}	
 	
 	public void integrar() throws JsonGenerationException, JsonMappingException, IOException, Exception{
 		List<Pedido> pListPost = getListToPost();		
 		for(Pedido p : pListPost){
+			System.out.println(p);
 			String json = mapper.writeValueAsString(p);
-			System.out.println(p.getCodigo());
-			//Util.sendPost(json, this.urlPost);
-			pedidosMD5Cache.put(p.getCodigo().toString(), Util.transformStringToMD5(json));
+			Util.sendPost(json, this.urlPost);
+			pedidosMD5Cache.put(p.getCodigo().toString(), Util.transformStringToMD5(p.toString()));
 			mapper.writeValue(fileCacheIntegraator, pedidosMD5Cache);
 		}
 		

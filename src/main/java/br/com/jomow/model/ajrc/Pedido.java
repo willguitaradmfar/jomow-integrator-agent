@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 public class Pedido {
 	//CODIGO
+	private Long _id;
+	//CODIGO
 	private Long codigo;
 	//A1
 	private String nomeCliente;
@@ -51,8 +53,9 @@ public class Pedido {
 	private String md5;
 	
 	public Pedido(ResultSet results) throws SQLException {
-		
-			setCodigo(results.getLong("CODIGO"));
+			
+			set_id(results.getLong("CODIGO"));
+			setCodigo(get_id());
 			setBairro(results.getString("A11"));
 			setCidade(results.getString("A12"));
 			setCliente(results.getString("A14"));
@@ -76,6 +79,20 @@ public class Pedido {
 		
 	}	
 	
+	
+	
+	public Long get_id() {
+		return _id;
+	}
+
+
+
+	public void set_id(Long _id) {
+		this._id = _id;
+	}
+
+
+
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -211,5 +228,31 @@ public class Pedido {
 		this.md5 = md5;
 	}
 	
+	@Override
+	public String toString() {
+		String p =  "\n::"+get_id()
+					+"\n::"+getCodigo()
+					+"\n::"+getBairro()
+					+"\n::"+getCidade()
+					+"\n::"+getCliente()
+					+"\n::"+getCodigoProduto()
+					+"\n::"+getCondicaoDePagamento()
+					+"\n::"+getDescricaoProduto()
+					+"\n::"+getEndereco()
+					+"\n::"+getHorarioPedido()
+					+"\n::"+getNomeCliente()
+					+"\n::"+getReferenciaEndereco()
+					+"\n::"+getStatus()
+					+"\n::"+getTelefone()
+					+"\n::"+getUserSystem()
+					+"\n::"+getQtde()
+					+"\n::"+getTotal()
+					+"\n::"+getTroco()
+					+"\n::"+getTxEntrega()
+					+"\n::"+getValorCompra()
+					+"\n::"+getValorProduto()
+					+"\n::"+getDataPedido();
+		return p;
+	}
 
 }

@@ -13,8 +13,8 @@ public class Connector {
 	public Connector() {
 	}
 	
-	public Connector(String table) {
-		this.url = "jdbc:odbc:"+table;
+	public Connector(String fonte) {
+		this.url = "jdbc:odbc:"+fonte;
 	}
 
 	public Connection getConnection() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {		
